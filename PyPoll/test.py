@@ -1,7 +1,7 @@
 import os
 import csv
 import unicodecsv
-cereal_csv = os.path.join("..", "budget_data.csv")
+cereal_csv = os.path.join("..", "budget_data")
 
 # Open and read csv
 with open(cereal_csv, newline="") as csvfile:
@@ -17,6 +17,3 @@ with open(cereal_csv, newline="") as csvfile:
         # Convert row to float and compare to grams of fiber
         if float(row[7]) >= 5:
             print(row)
-
-
-
