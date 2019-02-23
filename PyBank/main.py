@@ -1,22 +1,62 @@
 import os
 import csv
-import unicodecsv
-cereal_csv = os.path.join("..", "budget_data.csv")
+budget_csv = os.path.join("..", "budget_data.csv")
+with open(budget_csv, newline="") as csvfile:
+    csv_f = csv.reader(csvfile)
 
-# Open and read csv
-with open(cereal_csv, newline="") as csvfile:
-    csvreader = unicodecsv.reader(csvfile, delimiter=",",encoding='utf-8-sig')
-
-    # Read the header row first (skip this part if there is no header)
     csv_header = next(csvfile)
-    print(f"Header: {csv_header}")
 
-    # Read through each row of data after the header
-    for row in csvreader:
+    month_count = 0
+    pl_total = 0
+    prev_pl = 0
 
-        # Convert row to float and compare to grams of fiber
-        if float(row[7]) >= 5:
-            print(row)
+    prev_bigg_loss = 0
+
+    prev_bigg_prof = 0
+
+    curr_diff = 0
 
 
 
+    for row in csvfile:
+        
+
+        row_curr = row
+        
+        date,pl = row_curr.split(",")
+
+        if(int(month_count) == 0):
+            pl_ini = pl
+            prev_bigg_prof
+        
+        curr_pl = pl
+
+        month_count = month_count + 1   
+        
+        pl_total = int(pl) + pl_total
+
+        curr_diff = int(curr_pl) - int(prev_pl)
+        
+        if curr_diff > 0:
+            if(curr_diff > prev_bigg_prof):
+                prev_bigg_prof = curr_diff
+                prof_date = date
+        
+        if curr_diff < 0:
+            if(curr_diff < prev_bigg_loss):
+                prev_bigg_loss = curr_diff
+                loss_date = date
+
+
+        prev_pl = curr_pl
+        
+    diff = int(curr_pl) - int(pl_ini)
+    avg_change = diff/(int(month_count)-1)
+    
+
+print("Financial Analysis\n----------------------")
+print("Total Months: ",int(month_count))
+print("Total: $", int(pl_total))
+print("Average Change: $", round(avg_change,2))
+print("Greatest Increase in Profits: ", prof_date, "($", int(prev_bigg_prof), ")")
+print("Greatest Decrease in Profits: ", loss_date, "($", int(prev_bigg_loss),")")
