@@ -60,3 +60,14 @@ print("Total: $", int(pl_total))
 print("Average Change: $", round(avg_change,2))
 print("Greatest Increase in Profits: ", prof_date, "($", int(prev_bigg_prof), ")")
 print("Greatest Decrease in Profits: ", loss_date, "($", int(prev_bigg_loss),")")
+
+output_file = 'bank.txt'
+with open(output_file, "w", newline="") as datafile:
+    csvwriter = csv.writer(datafile)
+    csvwriter.writerow(["Financial Analysis"])
+    csvwriter.writerow(["---------------------"])
+    csvwriter.writerow([f"Total Months:  {month_count}"])
+    csvwriter.writerow([f"Average Change: $ {round(avg_change,2)} " ])
+    csvwriter.writerow([f"Greatest Increase in Profits:  {prof_date} ($ {int(prev_bigg_prof)} )"])
+    csvwriter.writerow([f"Greatest Decrease in Profits:  {loss_date} ($ {int(prev_bigg_loss)} )"])
+    
